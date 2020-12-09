@@ -1,4 +1,4 @@
-// ***********************************************packages-import**************************************************
+// ***********************************************packages-import**********************************
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -10,7 +10,7 @@ const requestIp = require('request-ip');
 
 const esClient = new elasticsearch.Client({
   hosts: ['http://3.139.243.255:9200'],
-});                                             //Elasticsearch 
+}); // Elasticsearch
 
 const app = express();
 app.use(requestIp.mw());
@@ -19,7 +19,7 @@ app.use(useragent.express());
 const client = redis.createClient(6379, '3.131.254.70');
 client.on('connect', () => {
   console.log('Redis server connected');
-});                                             //Redis  
+}); // Redis
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ****************************************************Redis Endpoints*********************************************
+// ****************************************************Redis Endpoints************
 app.get('/', (req, res) => {
 //  res.send('Welcome!');
 
@@ -109,7 +109,7 @@ app.post('/book/delete/:id', (req, res) => {
 
   res.redirect('/search');
 });
-// *************************************************Elasticsearch endpoints*****************************************************
+// *************************************************Elasticsearch endpoints*********************
 app.get('/elastic', (req, res) => {
   const IP = req.clientIp;
   const userAgent = req.useragent.source;
@@ -163,7 +163,7 @@ app.get('/search-ip/:ip', (req, res) => {
     res.send(err.message);
   });
 });
-// *************************************************************App*********************************************
+// *************************************************************App*************
 
 app.listen(5000);
 console.log('Server Started on Port 5000');
