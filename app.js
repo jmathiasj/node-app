@@ -126,12 +126,8 @@ app.get('/elastic', (req, res) => {
 });
 
 app.get('/search-ua/:ua', (req, res) => {
-  // Access title like this: req.params.title
-
-  /* Query using slop to allow for unexact matches */
   esClient.search({
     index: 'userconf',
-    // type: 'articles',
     body: {
       query: {
         match_phrase: {
@@ -151,7 +147,6 @@ app.get('/search-ua/:ua', (req, res) => {
 app.get('/search-ip/:ip', (req, res) => {
   esClient.search({
     index: 'userconf',
-    // type: 'articles',
     body: {
       query: {
         match_phrase: {
