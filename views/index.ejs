@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://bootswatch.com/3/cerulean/bootstrap.min.css">
+        <title>Books App</title>
+<!-- <style>
+    .del:checked +span{
+        color:red;
+
+    }
+    .task-list{
+        list-style:none;
+    }
+</style> -->
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+  
+
+        <div class="container">
+          <div class="navbar-header">
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button> -->
+              <a class="navbar-brand" href="#">Books App</a>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="well">
+         <% if (reply=== 1) { %>
+        <h3>Recently added Book</h3>
+        Book Name: <%= books.name%><br>
+        Author: <%= books.author%><br>
+        ID: <%= books.id%><br>
+        Cost: ₹<%= books.cost%><br>
+        <br>
+        <% } else {%>
+            <h3>No Recent Books!!</h3>
+            <% } %>
+    </div>
+
+        </form>
+        <div class="well">
+        <h3>Add a New Book</h3>
+        <form method="post" action="/book/add">
+            <label>Book Name</label><br>
+            <input type="text" class="form-control" name="name" placeholder="Book Name" required>
+            <br>
+            <label>Author</label><br>
+            <input type="text"  class="form-control" name="author" placeholder="Author" required>
+            <br>
+            <label>ID</label><br>
+            <input type="text" class="form-control" name="id" placeholder="ID" required>
+            <br>
+            <label>Cost</label><br>
+            <input type="text" class="form-control" name="cost" placeholder="Cost in ₹" required>
+            <br>
+            <div class="text-center">
+            <input type="submit" style="margin:5px;padding-right:40px;padding-left:40px" class="btn btn-primary" value="Add a Book">
+            <a href="/search"><input type="button" style="margin:5px;padding-right:40px;padding-left:40px"; class="btn btn-primary" value="Search Book"></a>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

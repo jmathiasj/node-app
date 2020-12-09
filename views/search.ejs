@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://bootswatch.com/3/cerulean/bootstrap.min.css">
+        <title>Books App</title>
+<!-- <style>
+    .del:checked +span{
+        color:red;
+
+    }
+    .task-list{
+        list-style:none;
+    }
+</style> -->
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+  
+
+        <div class="container">
+          <div class="navbar-header">
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button> -->
+              <a class="navbar-brand" href="#">Books App</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+
+   
+  <div class="well">
+        <h3>Search For Book By Name</h3>
+       
+        <form  method="post" action="/book/search">
+            <label>Book ID</label><br>
+            <input type="text" class="form-control" name="id" placeholder="Book ID" required>
+            <br>
+            <div class="text-center">
+            <a href="/"><input type=button style="margin:5px;padding-left:50px; padding-right:50px"  class="btn btn-primary" value="Go Back"></button></a>
+            <input type="submit" style="margin:5px;padding-right:40px;padding-left:40px"; class="btn btn-primary" value="Click To Search">
+        </div>
+        </div>
+        </form>
+        <div class="well">
+            
+            <%if(error){%><span><h3><%=error%></h3></span>
+                <% } %>
+                <%if(books=='exists'){%>
+           <h3>Book Found !!</h3>
+           Book Name: <%= book.name%><br>
+           Author: <%= book.author%><br>
+           ID: <%= book.id%><br>
+           Cost: ₹<%= book.cost%><br>
+           <br>
+
+<form action="/book/delete/<%=book.id%>" method="POST">
+  <button class="btn btn-danger text-center" style="margin:5px;" value="Delete">Delete</button>
+</form>
+               <% } %>
+               <br>
+
+       </div> 
+    </div>
+</div>
+</body>
+</html>
