@@ -176,7 +176,7 @@ scrape_configs:
         />
       </p>
 
-5. A datasources.yml file is created for the Grafan Config and the following is added
+5. A datasources.yml file is created for the Grafana Config and the following is added
   ```
     apiVersion: 1
     datasources:
