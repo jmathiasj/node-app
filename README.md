@@ -1,6 +1,6 @@
 # Node-App
 
-Dockerizing a simple NodeJS Web App
+Dockerizing a simple NodeJS App
 
 1. Create a project directory and clone the repository..(redis and ES to be changed)
     > mkdir <directory_name>

@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const redis = require('redis');
 const useragent = require('express-useragent');
 const elasticsearch = require('elasticsearch');
+const url = require('url');
+const prClient = require('prom-client');
 const requestIp = require('request-ip');
 
 const esClient = new elasticsearch.Client({
@@ -16,6 +18,22 @@ const app = express();
 app.use(requestIp.mw());
 app.use(useragent.express());
 
+const register = new prClient.Registry();
+// Add a default label which is added to all metrics
+register.setDefaultLabels({
+  app: 'NodeApp',
+});
+// Enable the collection of default metrics
+prClient.collectDefaultMetrics({ register });
+// create a Histogram metric
+const httpRequestDurationMicroseconds = new prClient.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in microseconds',
+  labelNames: ['method', 'route', 'code'],
+  buckets: [0.1, 0.3, 0.5, 0.7, 1, 3, 5, 7, 10],
+});
+register.registerMetric(httpRequestDurationMicroseconds);
+// register metric
 const client = redis.createClient(6379, '3.131.254.70');
 client.on('connect', () => {
   console.log('Redis server connected');
@@ -92,6 +110,16 @@ app.get('/search', (req, res) => {
     error: '',
     books: '',
   });
+});
+
+app.get('/metrics', (req, res) => {
+  const route = url.parse(req.url).pathname;
+  const end = httpRequestDurationMicroseconds.startTimer();
+  if (route === '/metrics') {
+    res.setHeader('Content-Type', register.contentType);
+    res.end(register.metrics());
+  }
+  end({ route, code: res.statusCode, method: req.method });
 });
 
 app.post('/book/delete/:id', (req, res) => {
